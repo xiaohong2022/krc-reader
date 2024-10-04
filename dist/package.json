@@ -1,0 +1,18 @@
+{
+  "name": "krc-reader",
+  "version": "1.0.0",
+  "description": ".krc file parsing tool",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohong2022/krc-reader"
+  },
+  "bugs": "https://github.com/xiaohong2022/krc-reader/issues",
+  "author": "xiaohong2022",
+  "license": "MIT",
+  "type": "module",
+  "types": "lib/index.d.ts"
+}

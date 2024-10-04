@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "tsc && rollup -c rollup.config.js && cp LICENSE README.md README.zh-CN.md dist/",
+    "format": "prettier --write src/"
+  },
+  "author": "xiaohong2022",
+  "license": "MIT",
+  "type": "module",
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
+    "prettier": "^3.3.3",
+    "rollup": "^4.21.2",
+    "typescript": "^5.5.4"
+  }
+}
