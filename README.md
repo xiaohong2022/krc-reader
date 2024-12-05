@@ -1,8 +1,6 @@
-English | [简体中文](README.zh-CN.md)
-
 # krc-reader
 
-.krc file parsing tool
+A `.krc` file parsing package.
 
 ## Installation
 
@@ -12,142 +10,97 @@ $ npm install krc-reader
 
 ## Documentation
 
-### namespace `KRCReader`
-
-*function KRCReader(content: string): KRCItem*
+### function KRCReader(content: string): [Result](#Result)
 
 **Params:**
 
-| Name | Type | Description |
-| ---- | ---- | ----------- |
-| content | *string* | .krc file content |
+| Name      | Type   | Description         |
+| --------- | ------ | ------------------- |
+| `content` | string | The `.krc` file content |
 
-**Return:** [KRCItem](#KRCItem)
+**Return:** [Result](#Result)
 
 **Example:**
-```js
-import KRCReader from 'krc-reader';
 
-const result = KRCReader(`.krc file content...`);
+```js
+import KRCReader from "krc-reader";
+
+const result = KRCReader(`File content...`);
 console.log(result);
 ```
 
-#### KRCItem
+### Result
 
-##### singer
+- **metadata: { [ name: string ]: string }**\
+  The `.krc` file header config info.
 
-*singer: string*
+  **Example:**\
+  The `.krc` file content:
+  ```
+  [id:$00000000]
+  [total:0]
+  [offset:0]
+  ...other content...
+  ```
+  and the metadata:
+  ```json
+  {
+    "id": "$00000000",
+    "total": "0",
+    "offset": "0"
+  }
+  ```
 
-The singer name of the song.
+- **lyrics: [formatedLyric](#formatedLyric)[]**\
+   The lyrics of this song.
 
-##### name
+- **hasPhonic: boolean**\
+   Whether to provide transliteration.
 
-*name: string*
+- **hasTranslate: boolean**\
+   Whether to provide translations.
 
-The name of the song.
+### formatedLyric
 
-##### hash
+- **start: number**\
+   The starting time of the lyric.
 
-*hash: string*
+- **end: number**\
+  The end time of the lyric.
+- **duration: number**\
+  The duration of the lyric.
 
-The hash of the .krc file.
+- **words: [formatedLyricWord](#formatedLyricWord)[]**\
+  The words of the lyric.
 
-##### total
+- **rawWords: string**\
+  The raw content of the lyric.
 
-*total: number*
+- **rawPhonic?: string**\
+  The raw transliteration content of the lyric.
 
-The duration of the song.
+- **translate?: string**\
+  The translation content of the lyric.
 
-##### lyricData
+### formatedLyricWord
 
-*lyricData: lyricItem[]*
+- **start: number**\
+   The starting time of the word.
 
-The lyrics of the song.
+- **end: number**\
+  The end time of the word.
 
-##### hasTranslate
+- **duration: number**\
+  The duration of the word.
 
-*hasTranslate: boolean*
+- **startInLyric: number**\
+   The starting time of the word in the lyric.
 
-Whether there are translations in the .krc file.
+- **endInLyric: number**\
+   The end time of the word in the lyric.
 
-##### hasPhonogram
+- **word: formatedLyricWord[]**\
+  The content of the word.
 
-*hasPhonogram: boolean*
-
-Whether there are phonetic symbols in the .krc file.
-
-#### lyricItem
-
-##### start
-
-*start: number*
-
-The starting time of the lyric.
-
-##### end
-
-*end: number*
-
-The end time of the lyric.
-
-##### total
-
-*total: number*
-
-The duration of the lyric.
-
-##### content
-
-*content: lyricWordItem[]*
-
-The words of the lyric.
-
-##### raw_content
-
-*raw_content: string*
-
-The raw content of the lyric.
-
-##### raw_phonic
-
-*raw_phonic?: string*
-
-The raw phonetic symbols content of the lyric.
-
-##### translate
-
-*translate?: string*
-
-The translation content of the lyric.
-
-#### lyricWordItem
-
-##### start
-
-*start: number*
-
-The starting time of the word.
-
-##### end
-
-*end: number*
-
-The end time of the word.
-
-##### total
-
-*total: number*
-
-The duration of the word.
-
-##### word
-
-*word: string*
-
-The content of the word.
-
-##### phonicWord
-
-*phonicWord?: number*
-
-The phonetic symbol content of the word.
+- **phonic?: string**\
+  The raw transliteration content of the word.

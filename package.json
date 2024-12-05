@@ -1,16 +1,30 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "tsc && rollup -c rollup.config.js && cp LICENSE README.md README.zh-CN.md dist/",
-    "format": "prettier --write src/"
-  },
+  "name": "krc-reader",
+  "version": "1.1.0",
+  "description": "A `.krc` file parsing package.",
   "author": "xiaohong2022",
   "license": "MIT",
   "type": "module",
+  "files": [
+    "dist/",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc && rollup -c rollup.config.js",
+    "format": "prettier -w src/**"
+  },
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
-    "prettier": "^3.3.3",
-    "rollup": "^4.21.2",
-    "typescript": "^5.5.4"
+    "prettier": "^3.4.2",
+    "rollup": "^4.28.0",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xiaohong2022/krc-reader"
   }
 }
