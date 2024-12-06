@@ -46,19 +46,19 @@ function parseFileContent(content: string): {
   }
 }
 
-export interface formatedLyric extends lyricLine {
-  words: formatedLyricWord[]
+export interface formattedLyric extends lyricLine {
+  words: formattedLyricWord[]
   rawWords: string
   rawPhonic?: string
   translate?: string
 }
 
-export interface formatedLyricWord extends lyricWord {
+export interface formattedLyricWord extends lyricWord {
   phonic?: string
 }
 
-function formatLyric(lyrics: lyricLine[], language: languageData): formatedLyric[] {
-  let results: formatedLyric[] = []
+function formatLyric(lyrics: lyricLine[], language: languageData): formattedLyric[] {
+  let results: formattedLyric[] = []
 
   for (let i in lyrics) {
     let lyric = lyrics[i]
@@ -67,7 +67,7 @@ function formatLyric(lyrics: lyricLine[], language: languageData): formatedLyric
     for (let index in lyric.words) {
       // 歌词每字
       let word = lyric.words[index]
-      let result: formatedLyricWord = Object.assign({}, word)
+      let result: formattedLyricWord = Object.assign({}, word)
 
       if (language.phonic) {
         result.phonic = language.phonic[i][index]
@@ -77,7 +77,7 @@ function formatLyric(lyrics: lyricLine[], language: languageData): formatedLyric
     }
 
     // 歌词每行
-    let result: formatedLyric = {
+    let result: formattedLyric = {
       start: lyric.start,
       duration: lyric.duration,
       end: lyric.end,
@@ -100,23 +100,23 @@ function formatLyric(lyrics: lyricLine[], language: languageData): formatedLyric
 
 export interface Result {
   metadata: { [name: string]: string }
-  lyrics: formatedLyric[]
+  lyrics: formattedLyric[]
   hasPhonic: boolean
   hasTranslate: boolean
 }
 
 export default function (content: string): Result {
-  const parsedFile = parseFileContent(content) // 解析文件
+  let parsedFile = parseFileContent(content) // 解析文件
 
-  const language = getLanguageFromMetadata(parsedFile.metadata) // 获取副歌词部分
-  if (!language) throw new Error('Missing language.')
+  let language = getLanguageFromMetadata(parsedFile.metadata) // 获取副歌词部分
+  if (!language) language = { version: 1, content: [] }; // 如果没有提供副歌词，则默认为无
 
-  const parsedLanguage = parseLanguageData(language) // 解析副歌词部分
-  const formatedLyrics = formatLyric(parsedFile.lyrics, parsedLanguage) // 整理歌词部分
+  let parsedLanguage = parseLanguageData(language) // 解析副歌词部分
+  let formattedLyrics = formatLyric(parsedFile.lyrics, parsedLanguage) // 整理歌词部分
 
   return {
     metadata: parsedFile.metadata,
-    lyrics: formatedLyrics,
+    lyrics: formattedLyrics,
     hasPhonic: !!parsedLanguage.phonic,
     hasTranslate: !!parsedLanguage.translate
   }
