@@ -1,6 +1,6 @@
 {
   "name": "krc-reader",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "A `.krc` file parsing package.",
   "author": "xiaohong2022",
   "license": "MIT",
