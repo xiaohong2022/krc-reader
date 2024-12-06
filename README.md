@@ -1,3 +1,5 @@
+English | [中文](./README.zh-CN.md)
+
 # krc-reader
 
 A `.krc` file parsing package.
@@ -14,9 +16,9 @@ $ npm install krc-reader
 
 **Params:**
 
-| Name      | Type   | Description         |
-| --------- | ------ | ------------------- |
-| `content` | string | The `.krc` file content |
+| Name      | Type   | Description              |
+| --------- | ------ | ------------------------ |
+| `content` | string | The `.krc` file content. |
 
 **Return:** [Result](#Result)
 
@@ -32,45 +34,46 @@ console.log(result);
 ### Result
 
 - **metadata: { [ name: string ]: string }**\
-  The `.krc` file header config info.
+  The `.krc` file header config info, such as the title, artist, album, etc.
 
   **Example:**\
   The `.krc` file content:
   ```
-  [id:$00000000]
-  [total:0]
-  [offset:0]
+  [ar:Artist]
+  [ti:Title]
+  [al:Album]
   ...other content...
   ```
   and the metadata:
   ```json
   {
-    "id": "$00000000",
-    "total": "0",
-    "offset": "0"
+    "ar": "Artist",
+    "ti": "Title",
+    "al": "Album"
   }
   ```
 
-- **lyrics: [formatedLyric](#formatedLyric)[]**\
-   The lyrics of this song.
+- **lyrics: [formattedLyric](#formattedLyric)[]**\
+  The lyrics of this song.
 
 - **hasPhonic: boolean**\
-   Whether to provide transliteration.
+  Whether to provide transliteration.
 
 - **hasTranslate: boolean**\
-   Whether to provide translations.
+  Whether to provide translations.
 
-### formatedLyric
+### formattedLyric
 
 - **start: number**\
-   The starting time of the lyric.
+  The start time of the lyric.
 
 - **end: number**\
   The end time of the lyric.
+
 - **duration: number**\
   The duration of the lyric.
 
-- **words: [formatedLyricWord](#formatedLyricWord)[]**\
+- **words: [formattedLyricWord](#formattedLyricWord)[]**\
   The words of the lyric.
 
 - **rawWords: string**\
@@ -82,10 +85,10 @@ console.log(result);
 - **translate?: string**\
   The translation content of the lyric.
 
-### formatedLyricWord
+### formattedLyricWord
 
 - **start: number**\
-   The starting time of the word.
+  The start time of the word.
 
 - **end: number**\
   The end time of the word.
@@ -94,12 +97,12 @@ console.log(result);
   The duration of the word.
 
 - **startInLyric: number**\
-   The starting time of the word in the lyric.
+  The start time of the word relative to the lyric.
 
 - **endInLyric: number**\
-   The end time of the word in the lyric.
+  The end time of the word relative to the lyric.
 
-- **word: formatedLyricWord[]**\
+- **word: formattedLyricWord[]**\
   The content of the word.
 
 - **phonic?: string**\
